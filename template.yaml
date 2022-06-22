@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  tonapi
+
+Globals:
+  Function:
+    Tracing: Active
+    Environment:
+      Variables:
+        COUNT_API_URL: "https://api.countapi.xyz"
+        COUNT_API_NAMESPACE: "/tonapielusaisoares"
+        COUNT_API_KEY: "/visits"
+  Api:
+    TracingEnabled: True
+
+Resources:
+  hitKeyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/countApi/hitKey.hitKeyHandler
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Description: Accesses Count API to increase the counter
+      Environment:
+        Variables:
+          COUNT_API_HIT_ENDPOINT: "/hit"
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /hit-counter
+            Method: GET
+
+  getKeyValueFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/countApi/getKeyValue.getKeyValueHandler
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Description: Accesses Count API to get the value of the counter
+      Environment:
+        Variables:
+          COUNT_API_GET_ENDPOINT: "/get"
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /get-counter
+            Method: GET
+
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

@@ -1,0 +1,21 @@
+{
+  "name": "tonapi",
+  "version": "1.0.0",
+  "description": "This project is a Lambda SAM Application for hitting and getting counters from CountAPI as well as creating and getting user information. This project is required on the TON recruitment process for junior backend developer.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elusoares/tonapi.git"
+  },
+  "author": "Elusai da Silva Soares",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elusoares/tonapi/issues"
+  },
+  "homepage": "https://github.com/elusoares/tonapi#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
