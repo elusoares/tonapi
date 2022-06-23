@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/elusoares/tonapi#readme",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.113.0",
     "axios": "^0.27.2"
   }
 }
