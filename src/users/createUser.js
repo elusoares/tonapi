@@ -28,7 +28,7 @@ exports.createUserHandler = async (event) => {
             const emails = await ddbClient.send(new dynamodb.QueryCommand(getEmailParams));
             if(emails.Items.length > 0) {
                 response = {
-                    'statusCode': 200,
+                    'statusCode': 409,
                     'body': JSON.stringify({message: 'Email already in use'})
                 };
 
@@ -60,7 +60,7 @@ exports.createUserHandler = async (event) => {
             return response;
         } catch (error) {
             response = {
-                'statusCode': 502,
+                'statusCode': 500,
                 'body': error
             };
             return response;
