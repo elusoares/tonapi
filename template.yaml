@@ -71,6 +71,27 @@ Resources:
           Properties:
             Path: /create-user
             Method: POST
+  
+  getUserByIDFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/users/getUserByID.getUserByIDHandler
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Description: Access a user by its ID
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref Users
+      Environment:
+        Variables:
+          USERS: !Ref Users
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /get-user/{id}
+            Method: GET
 
   Users:
     Type: AWS::DynamoDB::Table
