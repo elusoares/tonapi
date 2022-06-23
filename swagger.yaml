@@ -73,7 +73,7 @@ paths:
           description: name, email and password are required
         409:
           description: email already in use
-  /get-user:
+  /get-user/{id}:
     get:
       tags:
       - users
@@ -81,19 +81,18 @@ paths:
       produces:
       - application/json
       parameters:
-      - in: query
-        description: uuid to get a user
-        required: true
+      - in: path
+        name: id
         type: string
+        required: true
+        description: uuid to get a user
       responses:
         200:
           description: ok
           schema:
             $ref: '#/definitions/getUserResponse'
-        502:
-          description: bad gateway
         400:
-          description: you must provide a user id
+          description: bad request
 definitions:
   getCounterResponse:
     type: object
@@ -151,6 +150,6 @@ definitions:
         type: string
         example: '2022-06-23T17:39:13.504Z'
 # Added by API Auto Mocking Plugin
-# host: p4xxwnppv0.execute-api.sa-east-1.amazonaws.com/Prod
+host: p4xxwnppv0.execute-api.sa-east-1.amazonaws.com/Prod
 schemes:
  - https
