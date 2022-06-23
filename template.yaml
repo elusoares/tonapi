@@ -22,7 +22,7 @@ Resources:
       Runtime: nodejs16.x
       Architectures:
         - x86_64
-      Description: Accesses Count API to increase the counter
+      Description: Access Count API to increase the counter
       Environment:
         Variables:
           COUNT_API_HIT_ENDPOINT: "/hit"
@@ -40,7 +40,7 @@ Resources:
       Runtime: nodejs16.x
       Architectures:
         - x86_64
-      Description: Accesses Count API to get the value of the counter
+      Description: Access Count API to get the value of the counter
       Environment:
         Variables:
           COUNT_API_GET_ENDPOINT: "/get"
@@ -50,6 +50,50 @@ Resources:
           Properties:
             Path: /get-counter
             Method: GET
+
+  createUserFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/users/createUser.createUserHandler
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Description: Create a user passing name, email and password as parameters
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref Users
+      Environment:
+        Variables:
+          USERS: !Ref Users
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /create-user
+            Method: POST
+
+  Users:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: users
+      AttributeDefinitions: 
+        - AttributeName: user_id
+          AttributeType: S
+        - AttributeName: user_email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: user_id
+          KeyType: HASH
+      GlobalSecondaryIndexes: 
+        - IndexName: user_email_index
+          KeySchema: 
+            - AttributeName: user_email
+              KeyType: HASH
+          Projection:
+            ProjectionType: KEYS_ONLY
+      BillingMode: PAY_PER_REQUEST
+      
+      
 
 Outputs:
   WebEndpoint:
