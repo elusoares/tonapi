@@ -17,10 +17,10 @@ exports.getKeyValueHandler = async (event) => {
 
         return response;
     } catch (error) {
-        console.log(error.message);
         let response = {
             'statusCode': 502,
-            'body': JSON.stringify(error.message)
+            'body': JSON.stringify(error?.message)
         };
+        return response;
     }
 }
