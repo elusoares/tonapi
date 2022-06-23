@@ -29,18 +29,18 @@ exports.createUserHandler = async (event) => {
             if(emails.Items.length > 0) {
                 response = {
                     'statusCode': 200,
-                    'body': JSON.stringify({message: "Email already in use"})
+                    'body': JSON.stringify({message: 'Email already in use'})
                 };
 
             } else {
                 let newUserParams = {
                     TableName: tableName,
                     Item: {
-                        "user_id": {S: id},
-                        "user_name": {S: name},
-                        "user_email": {S: email},
-                        "user_password": {S: password},
-                        "user_created_at": {S: created_at}
+                        'user_id': {S: id},
+                        'user_name': {S: name},
+                        'user_email': {S: email},
+                        'user_password': {S: password},
+                        'user_created_at': {S: created_at}
                     }
                 }
 
@@ -49,10 +49,10 @@ exports.createUserHandler = async (event) => {
                     'statusCode': 200,
                     'body': JSON.stringify({
                         newUserInfo: {
-                            "user_id": {S: id},
-                            "user_name": {S: name},
-                            "user_email": {S: email},
-                            "user_created_at": {S: created_at}
+                            'user_id': {id},
+                            'user_name': {name},
+                            'user_email': {email},
+                            'user_created_at': {created_at}
                         }
                     })
                 };
